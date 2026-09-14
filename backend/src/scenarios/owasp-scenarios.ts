@@ -1,4 +1,4 @@
-import { Scenario, Rule, RuleFieldType, RuleConditionType, RuleActionType } from '../types';
+import { Scenario, RuleFieldType, RuleConditionType, RuleActionType } from '../types';
 
 /**
  * SQL Injection & XSS Scenario

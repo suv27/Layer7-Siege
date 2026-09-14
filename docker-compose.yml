@@ -1,4 +1,4 @@
-version: '3.8'
+aahversion: '3.8'
 
 services:
   frontend:
@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:3001
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
     depends_on:
       - backend
     networks:

@@ -9,6 +9,8 @@ import ResultsPanel from '../../components/ResultsPanel';
 
 export default function ScenariosPage() {
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [selectedScenario, setSelectedScenario] = useState<Scenario | null>(null);
   const [rules, setRules] = useState<Rule[]>([]);
   const [isRunning, setIsRunning] = useState(false);
@@ -31,10 +33,17 @@ export default function ScenariosPage() {
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
       const response = await fetch(`${API_URL}/api/scenarios`);
+      if (!response.ok) {
+        throw new Error(`Scenario API returned ${response.status}`);
+      }
       const data = await response.json();
       setScenarios(data.scenarios);
+      setLoadError(null);
     } catch (error) {
       console.error('Failed to fetch scenarios:', error);
+      setLoadError('Unable to load scenarios. Start the backend on port 3001 and try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -133,6 +142,12 @@ export default function ScenariosPage() {
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl font-bold text-white mb-2">Select a Scenario</h1>
           <p className="text-slate-400 mb-8">Choose a security scenario to test your WAF configuration skills</p>
+
+          {isLoading && <p className="text-slate-400">Loading scenarios...</p>}
+          {loadError && <p className="text-red-400">{loadError}</p>}
+          {!isLoading && !loadError && scenarios.length === 0 && (
+            <p className="text-slate-400">No scenarios are available.</p>
+          )}
 
           <div className="grid md:grid-cols-2 gap-6">
             {scenarios.map((scenario) => (

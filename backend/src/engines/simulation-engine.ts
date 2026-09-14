@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { Scenario, Rule, SimulationState, EvaluationResult, HttpRequest } from '../types';
+import { Scenario, Rule, SimulationState, EvaluationResult } from '../types';
 import { TrafficGenerator } from './traffic-generator';
 import { evaluateRequest } from './rule-matcher';
 
