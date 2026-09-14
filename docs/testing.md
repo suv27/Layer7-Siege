@@ -25,6 +25,13 @@ cd backend && npm run build
 cd ../frontend && npm run build
 ```
 
+The frontend also includes a focused hydration-boundary regression check:
+
+```bash
+cd frontend
+npm run test:hydration
+```
+
 ## End-to-End Smoke Test
 
 From the repository root, run:
