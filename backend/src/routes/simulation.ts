@@ -17,9 +17,10 @@ export async function simulationRoutes(fastify: FastifyInstance) {
     }
 
     engine.start(100); // 100ms interval
+    const simulationId = SimulationManager.getActiveSimulations().at(-1) || 'active';
 
     return {
-      simulationId: 'active',
+      simulationId,
       status: 'running',
       scenarioId,
     };

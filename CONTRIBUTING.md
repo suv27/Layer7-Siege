@@ -18,6 +18,8 @@ The repository's GitHub Actions workflows run these checks on pull requests. The
 - Add or update tests for behavior changes.
 - Do not commit credentials, tokens, local environment files, build output, or dependencies.
 - Update documentation when setup, behavior, or security controls change.
+- Every pull request requires approval from a Code Owner before it can merge. The current Code Owner is `@suv27`, defined in [.github/CODEOWNERS](.github/CODEOWNERS).
+- Repository administrators must enable branch protection for `main` with required Code Owner review and required status checks. `CODEOWNERS` defines who may approve; GitHub branch protection enforces that approval is mandatory.
 
 ## Security Issues
 

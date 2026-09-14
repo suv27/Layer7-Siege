@@ -6,6 +6,7 @@ import { Shield, Target, Zap, Play, Square, Clock } from 'lucide-react';
 import TrafficVisualizer from '../../components/TrafficVisualizer';
 import RuleBuilder from '../../components/RuleBuilder';
 import ResultsPanel from '../../components/ResultsPanel';
+import PlatformWorkbench from '../../components/PlatformWorkbench';
 
 export default function ScenariosPage() {
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
@@ -24,6 +25,7 @@ export default function ScenariosPage() {
     accuracy: 0,
   });
   const [isComplete, setIsComplete] = useState(false);
+  const [simulationId, setSimulationId] = useState<string>();
 
   const fetchScenarios = async () => {
     try {
@@ -77,6 +79,8 @@ export default function ScenariosPage() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        setSimulationId(data.simulationId);
         setIsRunning(true);
         setIsComplete(false);
         
@@ -232,6 +236,7 @@ export default function ScenariosPage() {
             <RuleBuilder rules={rules} onRulesChange={setRules} disabled={isRunning} />
           </div>
         </div>
+        <PlatformWorkbench scenario={selectedScenario} rules={rules} score={score} simulationId={simulationId} />
       </div>
     </div>
   );

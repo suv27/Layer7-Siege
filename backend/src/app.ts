@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import { scenarioRoutes } from './routes/scenarios';
 import { simulationRoutes } from './routes/simulation';
 import { leaderboardRoutes } from './routes/leaderboard';
+import { platformRoutes } from './routes/platform';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({ logger: false });
@@ -15,6 +16,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await fastify.register(scenarioRoutes, { prefix: '/api' });
   await fastify.register(simulationRoutes, { prefix: '/api' });
   await fastify.register(leaderboardRoutes, { prefix: '/api' });
+  await fastify.register(platformRoutes, { prefix: '/api' });
 
   fastify.get('/health', async () => ({
     status: 'healthy',
