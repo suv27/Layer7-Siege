@@ -25,10 +25,6 @@ export default function ScenariosPage() {
   });
   const [isComplete, setIsComplete] = useState(false);
 
-  useEffect(() => {
-    fetchScenarios();
-  }, []);
-
   const fetchScenarios = async () => {
     try {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
@@ -46,6 +42,10 @@ export default function ScenariosPage() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchScenarios();
+  }, []);
 
   const selectScenario = async (scenario: Scenario) => {
     setSelectedScenario(scenario);

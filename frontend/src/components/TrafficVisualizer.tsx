@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { EvaluationResult } from '../types';
 
 interface TrafficVisualizerProps {
@@ -9,10 +9,10 @@ interface TrafficVisualizerProps {
 
 export default function TrafficVisualizer({ isSimulationRunning }: TrafficVisualizerProps) {
   const [traffic, setTraffic] = useState<EvaluationResult[]>([]);
-  const [eventSource, setEventSource] = useState<EventSource | null>(null);
+  const eventSource = useRef<EventSource | null>(null);
 
   useEffect(() => {
-    if (isSimulationRunning && !eventSource) {
+    if (isSimulationRunning && !eventSource.current) {
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
       const source = new EventSource(`${API_URL}/api/simulation/stream`);
 
@@ -38,16 +38,16 @@ export default function TrafficVisualizer({ isSimulationRunning }: TrafficVisual
         source.close();
       };
 
-      setEventSource(source);
+      eventSource.current = source;
     }
 
     return () => {
-      if (eventSource) {
-        eventSource.close();
-        setEventSource(null);
+      if (eventSource.current) {
+        eventSource.current.close();
+        eventSource.current = null;
       }
     };
-  }, [isSimulationRunning, eventSource]);
+  }, [isSimulationRunning]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
