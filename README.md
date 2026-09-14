@@ -244,6 +244,10 @@ The repository uses GitHub-native security settings and pull-request workflows:
 
 Secret scanning, push protection, Dependabot alerts/security updates, and branch protection should be enabled in the repository's GitHub Settings. See [SECURITY.md](SECURITY.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for reporting and contribution guidance.
 
+## Platform Features
+
+The interactive dashboard includes WAF rule authoring, scenario preflight tests, forensic reports, custom scenario authoring, AI prompt-injection evaluation, team leaderboards, live logs, player profiles, and contextual hints. See the [platform feature guide](docs/platform-features.md) for API routes, testing coverage, and the current in-memory persistence boundary.
+
 ## 🎮 Scenario Modules
 
 ### 1. OWASP Top 10 & API Security

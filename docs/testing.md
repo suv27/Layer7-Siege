@@ -41,3 +41,5 @@ bash scripts/e2e-smoke.sh
 ```
 
 The script starts both development servers, waits for `GET /health` and `/scenarios`, verifies that the API returns the registered OWASP and bot scenarios, and checks that the frontend scenario page is served. It stops both child processes when it exits.
+
+It also exercises profile retrieval, AI prompt evaluation, team creation, and hint unlocking. The complete feature map is documented in [platform-features.md](platform-features.md).

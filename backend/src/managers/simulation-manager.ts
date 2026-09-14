@@ -9,6 +9,7 @@ import { botScrapingScenario } from '../scenarios/bot-scenarios';
  */
 class SimulationManagerClass extends EventEmitter {
   private simulations: Map<string, SimulationEngine> = new Map();
+  private completedSimulations: Map<string, SimulationEngine> = new Map();
   private scenarios: Map<string, Scenario> = new Map();
 
   constructor() {
@@ -48,6 +49,7 @@ class SimulationManagerClass extends EventEmitter {
     
     // Forward engine events
     engine.on('traffic', (data) => {
+      this.emit('log', `traffic ${data.requestId} ${data.status}`);
       this.emit('traffic', { simulationId, data });
     });
     
@@ -66,7 +68,7 @@ class SimulationManagerClass extends EventEmitter {
    * Get a simulation by ID
    */
   getSimulation(id: string): SimulationEngine | undefined {
-    return this.simulations.get(id);
+    return this.simulations.get(id) || this.completedSimulations.get(id);
   }
 
   /**
@@ -77,6 +79,7 @@ class SimulationManagerClass extends EventEmitter {
     if (engine) {
       engine.stop();
       this.simulations.delete(id);
+      this.completedSimulations.set(id, engine);
       return true;
     }
     return false;
