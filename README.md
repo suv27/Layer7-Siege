@@ -225,6 +225,18 @@ Run the end-to-end smoke test from the repository root. It starts both developme
 bash scripts/e2e-smoke.sh
 ```
 
+## Repository Security
+
+The repository uses GitHub-native security settings and pull-request workflows:
+
+- CodeQL analyzes JavaScript and TypeScript.
+- Gitleaks scans commits and pull requests for exposed secrets.
+- npm audit checks backend and frontend production dependencies.
+- Dependabot proposes updates for npm packages and GitHub Actions.
+- CI runs tests, linting, builds, and the end-to-end smoke test.
+
+Secret scanning, push protection, Dependabot alerts/security updates, and branch protection should be enabled in the repository's GitHub Settings. See [SECURITY.md](SECURITY.md) and [CONTRIBUTING.md](CONTRIBUTING.md) for reporting and contribution guidance.
+
 ## 🎮 Scenario Modules
 
 ### 1. OWASP Top 10 & API Security

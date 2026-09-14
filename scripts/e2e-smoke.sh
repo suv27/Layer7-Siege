@@ -7,20 +7,25 @@ backend_port="${BACKEND_PORT:-3101}"
 frontend_port="${FRONTEND_PORT:-3100}"
 
 cleanup() {
-  kill "$backend_pid" "$frontend_pid" 2>/dev/null || true
-  pkill -P "$backend_pid" 2>/dev/null || true
-  pkill -P "$frontend_pid" 2>/dev/null || true
+  kill_tree() {
+    for child in $(pgrep -P "$1" 2>/dev/null || true); do
+      kill_tree "$child"
+    done
+    kill "$1" 2>/dev/null || true
+  }
+  kill_tree "$backend_pid"
+  kill_tree "$frontend_pid"
 }
 trap cleanup EXIT
 
 (cd backend && PORT="$backend_port" CORS_ORIGIN="http://localhost:$frontend_port" npm exec -- tsx src/server.ts) >"$backend_log" 2>&1 &
 backend_pid=$!
-(cd frontend && NEXT_PUBLIC_API_URL="http://localhost:$backend_port" npm run dev -- -p "$frontend_port") >"$frontend_log" 2>&1 &
+(cd frontend && NEXT_PUBLIC_API_URL="http://localhost:$backend_port" npm run build && npm run start -- -p "$frontend_port") >"$frontend_log" 2>&1 &
 frontend_pid=$!
 
 wait_for_url() {
   local url="$1"
-  for _ in {1..30}; do
+  for _ in {1..90}; do
     if curl --silent --fail "$url" >/dev/null; then
       return 0
     fi
