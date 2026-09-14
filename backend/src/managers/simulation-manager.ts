@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { SimulationEngine } from '../engines/simulation-engine';
-import { Scenario, Rule, SimulationState } from '../types';
+import { Scenario, Rule } from '../types';
 import { sqliXssScenario } from '../scenarios/owasp-scenarios';
 import { botScrapingScenario } from '../scenarios/bot-scenarios';
 

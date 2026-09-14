@@ -185,6 +185,8 @@ layer7-siege/
 4. **Open your browser**
    Navigate to `http://localhost:3000` to start using Layer7 Siege
 
+   Both development servers must remain running because the browser loads scenario data from the backend at `http://localhost:3001`.
+
 ### Docker Deployment (Recommended for Production)
 
 1. **Build and run with Docker Compose**
@@ -195,6 +197,33 @@ layer7-siege/
 2. **Access the application**
    - Frontend: `http://localhost:3000`
    - Backend API: `http://localhost:3001`
+
+   Docker Compose starts both services together. The frontend uses the published host API URL because the browser cannot resolve the backend service name inside the Docker network.
+
+## Testing
+
+Run backend unit and API integration tests:
+
+```bash
+cd backend
+npm install
+npm test
+npm run build
+```
+
+Build the frontend:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+Run the end-to-end smoke test from the repository root. It starts both development servers, checks backend health and scenario responses, and verifies the frontend scenario route:
+
+```bash
+bash scripts/e2e-smoke.sh
+```
 
 ## 🎮 Scenario Modules
 

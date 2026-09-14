@@ -4,8 +4,10 @@
 
 Layer7 Siege is a gamified web application that simulates Layer 7 security scenarios. The system consists of two main components:
 
-1. **Frontend Dashboard:** Next.js application for user interaction, visualization, and game mechanics
-2. **Backend Simulation Engine:** Node.js/Fastify server that generates simulated traffic, evaluates WAF rules, and manages game state
+1. **Frontend Dashboard:** Next.js application for user interaction, visualization, and game mechanics, served on port 3000
+2. **Backend Simulation Engine:** Node.js/Fastify server on port 3001 that generates simulated traffic, evaluates WAF rules, and manages game state
+
+During local development these are separate processes. Docker Compose starts both together. The browser calls the backend through the published `http://localhost:3001` address; the Docker network hostname is not browser-accessible.
 
 ## High-Level Architecture
 
@@ -17,7 +19,7 @@ Layer7 Siege is a gamified web application that simulates Layer 7 security scena
                          │ HTTP/SSE
                          ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Backend API Server                        │
+│              Backend API Server :3001                        │
 │                      (Fastify/Node.js)                       │
 ├─────────────────────────────────────────────────────────────┤
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐      │
