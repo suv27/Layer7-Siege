@@ -48,7 +48,6 @@ export class SimulationEngine extends EventEmitter {
 
     this.state.status = 'running';
     this.state.startTime = Date.now();
-    this.startTime = Date.now();
     this.trafficGenerator.reset();
 
     this.intervalId = setInterval(() => {

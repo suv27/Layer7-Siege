@@ -151,7 +151,7 @@ layer7-siege/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/layer7-siege.git
+   git clone https://github.com/suv27/Layer7-Siege.git
    cd layer7-siege
    ```
 
