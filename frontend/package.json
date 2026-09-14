@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:hydration": "node scripts/verify-hydration-boundary.mjs"
   },
   "dependencies": {
     "clsx": "^2.0.0",

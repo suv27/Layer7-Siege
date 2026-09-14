@@ -225,6 +225,13 @@ Run the end-to-end smoke test from the repository root. It starts both developme
 bash scripts/e2e-smoke.sh
 ```
 
+The root layout also suppresses hydration warnings caused by browser extensions that inject attributes into `<body>` before React hydrates. This is intentionally scoped to the document body; application content still hydrates normally. Verify the boundary with:
+
+```bash
+cd frontend
+npm run test:hydration
+```
+
 ## Repository Security
 
 The repository uses GitHub-native security settings and pull-request workflows:
